@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Logarithmic Spiral</title>
+    <style>
+        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #000; }
+        canvas { border: 1px solid #fff; }
+    </style>
+</head>
+<body>
+    <canvas id="spiralCanvas" width="600" height="600"></canvas>
+    <script>
+        const canvas = document.getElementById('spiralCanvas');
+        const ctx = canvas.getContext('2d');
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        let angleOffset = 0;
+        let thetaMax = 10 * Math.PI; // Starting max angle
+
+        function drawSpiral() {
+            // Draw new segment without clearing the entire canvas
+            ctx.beginPath();
+            ctx.strokeStyle = '#00ff00';
+            ctx.lineWidth = 2;
+
+            // Logarithmic spiral: r = a * e^(b * theta)
+            const a = 5; // Scale factor
+            const b = 0.2; // Growth rate
+
+            // Draw a small segment to create a smooth, continuous effect
+            const thetaStart = thetaMax - 0.1;
+            for (let theta = thetaStart; theta <= thetaMax; theta += 0.01) {
+                const r = a * Math.exp(b * (theta + angleOffset));
+                const x = centerX + r * Math.cos(theta);
+                const y = centerY + r * Math.sin(theta);
+                if (theta === thetaStart) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+
+            ctx.stroke();
+            angleOffset += 0.05; // Rotation speed
+            thetaMax += 0.1; // Extend the spiral outward
+
+            // Fade out older parts to prevent canvas overload
+            if (thetaMax > 50 * Math.PI) {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.02)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+
+            requestAnimationFrame(drawSpiral);
+        }
+
+        drawSpiral();
+    </script>
+</body>
+</html>
