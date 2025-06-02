@@ -20,7 +20,8 @@
         let thetaMax = 10 * Math.PI; // Starting max angle
 
         function drawSpiral() {
-            // Draw new segment without clearing the entire canvas
+            // Clear canvas to prevent overlap but keep the spiral visible
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
             ctx.strokeStyle = '#00ff00';
             ctx.lineWidth = 2;
@@ -29,13 +30,12 @@
             const a = 5; // Scale factor
             const b = 0.2; // Growth rate
 
-            // Draw a small segment to create a smooth, continuous effect
-            const thetaStart = thetaMax - 0.1;
-            for (let theta = thetaStart; theta <= thetaMax; theta += 0.01) {
+            // Draw from the start to thetaMax for a full spiral
+            for (let theta = 0; theta <= thetaMax; theta += 0.01) {
                 const r = a * Math.exp(b * (theta + angleOffset));
                 const x = centerX + r * Math.cos(theta);
                 const y = centerY + r * Math.sin(theta);
-                if (theta === thetaStart) {
+                if (theta === 0) {
                     ctx.moveTo(x, y);
                 } else {
                     ctx.lineTo(x, y);
@@ -46,10 +46,10 @@
             angleOffset += 0.05; // Rotation speed
             thetaMax += 0.1; // Extend the spiral outward
 
-            // Fade out older parts to prevent canvas overload
-            if (thetaMax > 50 * Math.PI) {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.02)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Reset thetaMax to prevent excessive growth
+            if (thetaMax > 20 * Math.PI) {
+                thetaMax = 10 * Math.PI;
+                angleOffset += 0.1; // Ensure continuous rotation
             }
 
             requestAnimationFrame(drawSpiral);
