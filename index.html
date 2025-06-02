@@ -1,61 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rotating Logarithmic Spiral</title>
-    <style>
-        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: #000; }
-        canvas { border: 1px solid #fff; }
-    </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
 </head>
 <body>
-    <canvas id="spiralCanvas" width="600" height="600"></canvas>
-    <script>
-        const canvas = document.getElementById('spiralCanvas');
-        const ctx = canvas.getContext('2d');
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
-        let angleOffset = 0;
-        let thetaMax = 10 * Math.PI; // Starting max angle
-
-        function drawSpiral() {
-            // Clear canvas to prevent overlap but keep the spiral visible
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.beginPath();
-            ctx.strokeStyle = '#00ff00';
-            ctx.lineWidth = 2;
-
-            // Logarithmic spiral: r = a * e^(b * theta)
-            const a = 5; // Scale factor
-            const b = 0.2; // Growth rate
-
-            // Draw from the start to thetaMax for a full spiral
-            for (let theta = 0; theta <= thetaMax; theta += 0.01) {
-                const r = a * Math.exp(b * (theta + angleOffset));
-                const x = centerX + r * Math.cos(theta);
-                const y = centerY + r * Math.sin(theta);
-                if (theta === 0) {
-                    ctx.moveTo(x, y);
-                } else {
-                    ctx.lineTo(x, y);
-                }
-            }
-
-            ctx.stroke();
-            angleOffset += 0.05; // Rotation speed
-            thetaMax += 0.1; // Extend the spiral outward
-
-            // Reset thetaMax to prevent excessive growth
-            if (thetaMax > 20 * Math.PI) {
-                thetaMax = 10 * Math.PI;
-                angleOffset += 0.1; // Ensure continuous rotation
-            }
-
-            requestAnimationFrame(drawSpiral);
-        }
-
-        drawSpiral();
-    </script>
+<script>
+a=(x,y,d=mag(k=9*cos(x/8),e=y/8-12.5)**2/99+sin(t)/6+.5)=>point((q=99-e*sin(atan2(k,e)*7)/d+k*(3+cos(d*d-t)*2))*sin(c=d/2+e/69-t/16)+200,(q+19*d)*cos(c)+200)
+t=0,draw=$=>{t||createCanvas(w=400,w);background(9).stroke(w,66);for(t+=PI/45,i=1e4;i--;)a(i%200,i/55)}
+</script>
 </body>
 </html>
