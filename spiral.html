@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+<script>
+let t = 0;
+
+function setup() {
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  noFill();
+  stroke(128, 0, 128);
+}
+
+function draw() {
+  background(10, 20, 30);
+  // Rotate the entire spiral for a dynamic 3D effect
+  rotateY(t * 0.1);
+  rotateX(sin(t * 0.05) * 0.3);
+  
+  // Draw a spiral with caterpillar-like segments
+  for (let i = 0; i < 200; i++) {
+    let a = i * 0.2 + t; // Angle along the spiral
+    let r = 100 + 50 * sin(t * 0.1 + i * 0.05); // Radius expands/contracts
+    let x = r * cos(a); // X in 2D plane
+    let y = r * sin(a); // Y in 2D plane
+    let z = i * 5 - 500 + sin(t + i * 0.1) * 50; // Z for 3D depth, with wiggle
+    let size = 5 + 3 * sin(t + i * 0.07); // Segment size pulses like a caterpillar
+    
+    push();
+    translate(x, y, z);
+    // Draw a small sphere for each segment, giving a caterpillar-like appearance
+    sphere(size, 8, 8); // Low detail for performance
+    pop();
+  }
+  
+  t += 0.03; // Animation speed
+}
+</script>
+</body>
+</html>
