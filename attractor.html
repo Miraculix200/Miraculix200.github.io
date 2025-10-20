@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: #000;
+      font-family: monospace;
+    }
+    canvas { display: block; }
+    .controls {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+    }
+    button {
+      background: rgba(128, 0, 128, 0.3);
+      border: 1px solid rgba(128, 0, 128, 0.8);
+      color: rgba(255, 255, 255, 0.9);
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      font-family: monospace;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    button:hover {
+      background: rgba(128, 0, 128, 0.6);
+      border-color: rgba(200, 0, 200, 1);
+    }
+    button:active {
+      background: rgba(180, 0, 180, 0.8);
+    }
+  </style>
+</head>
+<body>
+<div class="controls">
+  <button onclick="perturb()">PERTURB</button>
+  <button onclick="mutate()">MUTATE</button>
+</div>
+<script>
+// Clifford attractor particles
+let particles = [];
+const NUM_PARTICLES = 5000;
+
+// Base attractor parameters
+let params = {
+  a: -1.4,
+  b: 1.6,
+  c: 1.0,
+  d: 0.7
+};
+
+// Eigenmode oscillation
+let baseParams = {...params};
+let t = 0;
+let rotation = 0;
+
+class Particle {
+  constructor() {
+    this.x = random(-2, 2);
+    this.y = random(-2, 2);
+    this.vx = 0;
+    this.vy = 0;
+    this.history = [];
+    this.maxHistory = 30;
+  }
+
+  update() {
+    // Clifford attractor equations
+    let nx = sin(params.a * this.y) + params.c * cos(params.a * this.x);
+    let ny = sin(params.b * this.x) + params.d * cos(params.b * this.y);
+
+    // Velocity for coloring
+    this.vx = nx - this.x;
+    this.vy = ny - this.y;
+
+    this.x = nx;
+    this.y = ny;
+
+    // Store history for trails
+    this.history.push({x: this.x, y: this.y});
+    if (this.history.length > this.maxHistory) {
+      this.history.shift();
+    }
+  }
+
+  disturb(force) {
+    this.x += random(-force, force);
+    this.y += random(-force, force);
+  }
+
+  display(scale) {
+    // Color by velocity (energy)
+    let speed = sqrt(this.vx * this.vx + this.vy * this.vy);
+    let distFromCenter = sqrt(this.x * this.x + this.y * this.y);
+
+    // HSB coloring: hue by angle, brightness by speed
+    let angle = (atan2(this.y, this.x) + rotation) % TWO_PI;
+    let hue = map(angle, 0, TWO_PI, 0, 360);
+    let brightness = map(speed, 0, 0.5, 50, 100);
+    let sat = map(distFromCenter, 0, 3, 60, 100);
+
+    stroke(hue, sat, brightness, 200);
+    strokeWeight(2);
+    point(this.x * scale, this.y * scale);
+
+    // Optional: draw faint trail
+    if (this.history.length > 1) {
+      for (let i = 1; i < this.history.length; i++) {
+        let alpha = map(i, 0, this.history.length, 0, 100);
+        stroke(hue, sat, brightness, alpha);
+        strokeWeight(1);
+        let h = this.history[i];
+        point(h.x * scale, h.y * scale);
+      }
+    }
+  }
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+  colorMode(HSB, 360, 100, 100, 255);
+
+  // Initialize particles
+  for (let i = 0; i < NUM_PARTICLES; i++) {
+    particles.push(new Particle());
+  }
+}
+
+function draw() {
+  // Fade effect (trails)
+  background(0, 0, 0, 15);
+
+  translate(width / 2, height / 2);
+
+  // Parameter breathing (eigenmode oscillation)
+  params.a = baseParams.a + 0.3 * sin(t * 0.02);
+  params.b = baseParams.b + 0.3 * sin(t * 0.027);
+  params.c = baseParams.c + 0.3 * sin(t * 0.031);
+  params.d = baseParams.d + 0.3 * sin(t * 0.023);
+
+  // Slow rotation
+  rotation += 0.002;
+
+  // Scale to fit screen
+  let scale = min(width, height) / 6;
+
+  // Update and draw particles
+  for (let p of particles) {
+    p.update();
+    p.display(scale);
+  }
+
+  t += 1;
+}
+
+function perturb() {
+  // Scatter particles - they'll snap back to attractor
+  for (let p of particles) {
+    p.disturb(2.0);
+    p.history = []; // Clear trails for dramatic effect
+  }
+}
+
+function mutate() {
+  // Jump to new region of parameter space
+  baseParams.a = random(-2, 2);
+  baseParams.b = random(-2, 2);
+  baseParams.c = random(-2, 2);
+  baseParams.d = random(-2, 2);
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+</script>
+</body>
+</html>
