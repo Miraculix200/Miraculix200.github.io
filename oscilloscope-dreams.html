@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oscilloscope Dreams</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+            font-family: 'Courier New', monospace;
+        }
+        #controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #0f0;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border: 1px solid #0f0;
+            font-size: 12px;
+            z-index: 1000;
+            max-width: 300px;
+        }
+        .control-group {
+            margin: 10px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #0ff;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        .value {
+            color: #ff0;
+            float: right;
+        }
+        h3 {
+            margin: 0 0 10px 0;
+            color: #f0f;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <h3>⚡ OSCILLOSCOPE DREAMS ⚡</h3>
+
+        <div class="control-group">
+            <label>Base Frequency <span class="value" id="freqVal">1.0</span></label>
+            <input type="range" id="baseFreq" min="0.5" max="5" step="0.1" value="1">
+        </div>
+
+        <div class="control-group">
+            <label>Phase Drift <span class="value" id="driftVal">0.5</span></label>
+            <input type="range" id="phaseDrift" min="0" max="2" step="0.1" value="0.5">
+        </div>
+
+        <div class="control-group">
+            <label>Harmonic Count <span class="value" id="harmonicVal">5</span></label>
+            <input type="range" id="harmonicCount" min="1" max="10" step="1" value="5">
+        </div>
+
+        <div class="control-group">
+            <label>Glow Intensity <span class="value" id="glowVal">80</span></label>
+            <input type="range" id="glowIntensity" min="0" max="100" step="5" value="80">
+        </div>
+
+        <div class="control-group">
+            <label>Trail Fade <span class="value" id="fadeVal">5</span></label>
+            <input type="range" id="trailFade" min="0" max="20" step="1" value="5">
+        </div>
+
+        <div class="control-group">
+            <label>Color Speed <span class="value" id="colorVal">1.0</span></label>
+            <input type="range" id="colorSpeed" min="0.1" max="3" step="0.1" value="1">
+        </div>
+
+        <div class="control-group">
+            <label>
+                <input type="checkbox" id="showTrails" checked> Show Trails
+            </label>
+        </div>
+    </div>
+
+    <script>
+        // Oscilloscope Dreams - Lissajous figures as psychedelic mandalas
+        // Musical intervals mapped to frequency ratios
+        // Pure sine waves creating sacred geometry
+
+        let params = {
+            baseFreq: 1.0,
+            phaseDrift: 0.5,
+            harmonicCount: 5,
+            glowIntensity: 80,
+            trailFade: 5,
+            colorSpeed: 1.0,
+            showTrails: true
+        };
+
+        // Dorian/Mixolydian intervals as frequency ratios
+        // Dorian: 1, 9/8, 6/5, 4/3, 3/2, 5/3, 9/5, 2
+        // Mixolydian: 1, 9/8, 5/4, 4/3, 3/2, 5/3, 16/9, 2
+        const modalIntervals = [
+            1.0,      // root
+            9/8,      // major 2nd
+            6/5,      // minor 3rd (Dorian)
+            5/4,      // major 3rd (Mixolydian)
+            4/3,      // perfect 4th
+            3/2,      // perfect 5th
+            5/3,      // major 6th
+            16/9,     // minor 7th
+            9/5,      // minor 7th (Dorian alt)
+            2.0       // octave
+        ];
+
+        let time = 0;
+        let oscillators = [];
+        let pg; // Graphics buffer for glow effect
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            colorMode(HSB, 360, 100, 100, 100);
+
+            // Create graphics buffer for glow effect
+            pg = createGraphics(width, height);
+            pg.colorMode(HSB, 360, 100, 100, 100);
+
+            // Initialize oscillators with modal interval frequency ratios
+            initOscillators();
+
+            // Setup controls
+            setupControls();
+        }
+
+        function initOscillators() {
+            oscillators = [];
+            for (let i = 0; i < params.harmonicCount; i++) {
+                let interval = modalIntervals[i % modalIntervals.length];
+                oscillators.push({
+                    freqX: interval,
+                    freqY: interval * modalIntervals[(i + 3) % modalIntervals.length],
+                    phaseX: random(TWO_PI),
+                    phaseY: random(TWO_PI),
+                    phaseDriftX: random(-0.01, 0.01),
+                    phaseDriftY: random(-0.01, 0.01),
+                    hueOffset: (i * 360 / params.harmonicCount),
+                    size: map(i, 0, params.harmonicCount - 1, 1.0, 0.3)
+                });
+            }
+        }
+
+        function draw() {
+            // Trail fade effect
+            if (params.showTrails) {
+                fill(0, 0, 0, params.trailFade);
+                rect(0, 0, width, height);
+            } else {
+                background(0);
+            }
+
+            // Clear graphics buffer with slight fade for glow persistence
+            pg.background(0, 0, 0, 30);
+
+            translate(width / 2, height / 2);
+
+            // Draw each oscillator (Lissajous figure)
+            for (let i = 0; i < oscillators.length; i++) {
+                let osc = oscillators[i];
+
+                // Update phases
+                osc.phaseX += osc.phaseDriftX * params.phaseDrift;
+                osc.phaseY += osc.phaseDriftY * params.phaseDrift;
+
+                // Calculate hue based on oscillator index and time
+                let hue = (osc.hueOffset + time * params.colorSpeed * 10) % 360;
+
+                // Draw to graphics buffer for glow
+                pg.push();
+                pg.translate(width / 2, height / 2);
+                drawLissajous(pg, osc, hue, true);
+                pg.pop();
+
+                // Draw to main canvas
+                drawLissajous(this, osc, hue, false);
+            }
+
+            // Apply glow effect
+            if (params.glowIntensity > 0) {
+                push();
+                translate(-width / 2, -height / 2);
+                blendMode(ADD);
+                tint(360, 0, 100, params.glowIntensity);
+                image(pg, 0, 0);
+
+                // Double glow for extra bloom
+                if (params.glowIntensity > 50) {
+                    tint(360, 0, 100, params.glowIntensity / 2);
+                    image(pg, 0, 0);
+                }
+                blendMode(BLEND);
+                pop();
+            }
+
+            time += 0.01 * params.baseFreq;
+        }
+
+        function drawLissajous(target, osc, hue, forGlow) {
+            let scale = min(width, height) * 0.35 * osc.size;
+            let points = 1000;
+
+            let alpha = forGlow ? 60 : 80;
+            let brightness = forGlow ? 100 : 90;
+
+            target.noFill();
+            target.stroke(hue, 70, brightness, alpha);
+            target.strokeWeight(forGlow ? 3 : 1.5);
+
+            target.beginShape();
+            for (let i = 0; i < points; i++) {
+                let t = map(i, 0, points, 0, TWO_PI);
+
+                // Lissajous parametric equations
+                // x = A * sin(a*t + δ)
+                // y = B * sin(b*t)
+                let x = scale * sin(osc.freqX * t * params.baseFreq + osc.phaseX + time);
+                let y = scale * sin(osc.freqY * t * params.baseFreq + osc.phaseY);
+
+                // Add slight interference from other harmonics
+                for (let j = 1; j < 3; j++) {
+                    let harmonic = j + 1;
+                    x += (scale * 0.1 / harmonic) * sin(harmonic * osc.freqX * t * params.baseFreq + time * harmonic);
+                    y += (scale * 0.1 / harmonic) * sin(harmonic * osc.freqY * t * params.baseFreq + time * harmonic);
+                }
+
+                target.vertex(x, y);
+            }
+            target.endShape(CLOSE);
+
+            // Draw center point with extra glow
+            if (!forGlow) {
+                target.fill(hue, 50, 100, 60);
+                target.noStroke();
+                target.circle(0, 0, 4);
+            }
+        }
+
+        function setupControls() {
+            document.getElementById('baseFreq').addEventListener('input', (e) => {
+                params.baseFreq = parseFloat(e.target.value);
+                document.getElementById('freqVal').textContent = params.baseFreq.toFixed(1);
+            });
+
+            document.getElementById('phaseDrift').addEventListener('input', (e) => {
+                params.phaseDrift = parseFloat(e.target.value);
+                document.getElementById('driftVal').textContent = params.phaseDrift.toFixed(1);
+            });
+
+            document.getElementById('harmonicCount').addEventListener('input', (e) => {
+                params.harmonicCount = parseInt(e.target.value);
+                document.getElementById('harmonicVal').textContent = params.harmonicCount;
+                initOscillators();
+            });
+
+            document.getElementById('glowIntensity').addEventListener('input', (e) => {
+                params.glowIntensity = parseInt(e.target.value);
+                document.getElementById('glowVal').textContent = params.glowIntensity;
+            });
+
+            document.getElementById('trailFade').addEventListener('input', (e) => {
+                params.trailFade = parseInt(e.target.value);
+                document.getElementById('fadeVal').textContent = params.trailFade;
+            });
+
+            document.getElementById('colorSpeed').addEventListener('input', (e) => {
+                params.colorSpeed = parseFloat(e.target.value);
+                document.getElementById('colorVal').textContent = params.colorSpeed.toFixed(1);
+            });
+
+            document.getElementById('showTrails').addEventListener('change', (e) => {
+                params.showTrails = e.target.checked;
+            });
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+            pg = createGraphics(width, height);
+            pg.colorMode(HSB, 360, 100, 100, 100);
+        }
+
+        function keyPressed() {
+            if (key === ' ') {
+                initOscillators();
+            }
+            if (key === 's' || key === 'S') {
+                saveCanvas('oscilloscope-dreams', 'png');
+            }
+        }
+    </script>
+</body>
+</html>
