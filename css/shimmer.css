@@ -884,3 +884,55 @@ body {
   opacity: 0.6;
   letter-spacing: 1rem;
 }
+
+/* ==========================================================================
+   Biological / Organic Emerald Theme Overrides (.theme-emerald)
+   ========================================================================== */
+.theme-emerald {
+  --page-accent: var(--neon-emerald);
+}
+
+.theme-emerald ::selection {
+  background: rgba(52, 211, 153, 0.35);
+  color: #fff;
+}
+
+.theme-emerald .ambient-bg {
+  background: 
+    radial-gradient(circle at 15% 20%, rgba(52, 211, 153, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(192, 132, 252, 0.07) 0%, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+}
+
+.theme-emerald .doc-badge {
+  background: rgba(52, 211, 153, 0.1);
+  border-color: rgba(52, 211, 153, 0.3);
+  color: var(--neon-emerald);
+}
+
+.theme-emerald .eyebrow {
+  color: var(--neon-emerald);
+}
+
+.theme-emerald .essay-title {
+  background: linear-gradient(135deg, #ffffff 40%, #d1fae5 70%, var(--neon-emerald) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(52, 211, 153, 0.2);
+}
+
+.theme-emerald .callout-box {
+  border-left-color: var(--neon-emerald);
+}
+
+.theme-emerald .callout-box strong {
+  color: var(--neon-emerald);
+}
+
+.theme-emerald .nav-back:hover {
+  color: var(--neon-emerald);
+}
+
+.theme-emerald .essay-footer a:hover {
+  color: var(--neon-emerald);
+}
