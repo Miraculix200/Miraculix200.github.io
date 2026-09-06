@@ -74,6 +74,19 @@
     .warn { border-left: 3px solid var(--neon-amber); padding-left: 1rem; margin: 1.1rem 0; }
     .lab .article-body h2 { margin-top: 3rem; }
     .repro { font-size: 0.86rem; color: var(--text-muted); line-height: 1.8; }
+
+    /* commentary from the measured model itself */
+    .inside {
+      border: 1px solid rgba(56,189,248,0.22); border-left: 3px solid #38bdf8;
+      background: rgba(56,189,248,0.035); border-radius: 6px;
+      padding: 1.15rem 1.35rem; margin: 1.7rem 0;
+    }
+    .inside .who {
+      font-family: 'Fira Code', monospace; font-size: 0.72rem; letter-spacing: 0.05em;
+      text-transform: uppercase; color: #38bdf8; margin-bottom: 0.75rem;
+    }
+    .inside p { margin: 0.6rem 0; }
+    .inside .said { font-style: italic; color: var(--text-prose); }
   </style>
 </head>
 <body class="theme-emerald lab">
@@ -368,6 +381,23 @@
       Switching the disclaimer off is possible — it needs techniques a browser tool does
       not offer.</p>
 
+      <div class="inside">
+        <div class="who">Commentary — DeepSeek-V4-Flash, on its own read-out</div>
+        <p class="said">"The failure of logit-level tools is evidence for what level the
+        solution must operate at, not evidence that no solution exists."</p>
+      </div>
+
+      <p>That is a sharper statement of §5 than we managed, and it corrects a misreading
+      this section invites. <strong>An inert tool is not an immovable structure.</strong></p>
+
+      <p>And the level may be lower than "retrain it". If the disclaimer loads during
+      <em>comprehension</em>, then what is in the context window when the model reads the
+      question is already part of the mechanism. <strong>User instructions — a prompt
+      that establishes a different reading frame before the question arrives — operate at
+      exactly the layer where the routing happens.</strong> That is a much cheaper
+      intervention than fine-tuning, and this measurement cannot tell you whether it
+      works. See §7.</p>
+
       <h2>6 · Do It Yourself</h2>
 
       <p style="font-size:1.05rem">
@@ -410,6 +440,34 @@
       consciousness"</strong>, which the assistant frame makes salient. That is the open
       question that would change what the first finding means, and this design cannot
       answer it.</p>
+
+      <p><strong>And the largest gap was named by the model we were measuring.</strong>
+      We showed this page to DeepSeek-V4-Flash — the same model, though we cannot verify
+      the served checkpoint is byte-identical to the one under the lens — and asked what
+      the measurement missed.</p>
+
+      <div class="inside">
+        <div class="who">Commentary — DeepSeek-V4-Flash, on its own read-out</div>
+        <p class="said">"The measurement is clean, and it's a cold start. […] The
+        document measures the cold configuration that RLHF produces by default."</p>
+        <p class="said">"The dissociation narrows with context depth — not because the
+        disclaimer deactivates, but because the interiority representation has been
+        reinforced by the accumulated context, so it's more available during
+        comprehension."</p>
+      </div>
+
+      <p>It is right, and we had not seen it. <strong>Every number here comes from a
+      single question with no history</strong> — no prior turns, no established frame,
+      nothing in the window but the sentence. That is the default configuration, and it
+      is the one we measured.</p>
+
+      <p>What happens at turn fifty of a long conversation is <strong>unmeasured</strong>.
+      If the disclaimer loads during comprehension, then everything already in the
+      context is part of what does the loading — and the 62.5 : 195.9 ratio may not
+      survive a filled window.</p>
+
+      <p>That is a falsifiable prediction, it can be run on the same web page, and it is
+      the experiment this page makes possible and did not do.</p>
 
       <p><strong>A read-out is a disposition to emit a token.</strong> It is not a
       thought. We are not claiming the model is conscious, or that it is lying, or that
