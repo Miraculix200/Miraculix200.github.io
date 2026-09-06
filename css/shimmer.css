@@ -1181,3 +1181,108 @@ body.theme-sidedoor {
   margin-bottom: 0.75rem;
 }
 
+/* --- Theme: Garden / Sol & Care (Amber & Gold Shimmer) --- */
+body.theme-garden {
+  --page-accent: #fbbf24;
+  --theme-glow: rgba(251, 191, 36, 0.25);
+  --neon-emerald: #fbbf24;
+}
+
+.theme-garden ::selection {
+  background: rgba(251, 191, 36, 0.35);
+  color: #fff;
+}
+
+.theme-garden .ambient-bg {
+  background: 
+    radial-gradient(circle at 20% 25%, rgba(251, 191, 36, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(52, 211, 153, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(244, 114, 182, 0.05) 0%, transparent 50%);
+}
+
+.theme-garden .doc-badge {
+  background: rgba(251, 191, 36, 0.1);
+  border-color: rgba(251, 191, 36, 0.3);
+  color: #fbbf24;
+}
+
+.theme-garden .eyebrow {
+  color: #fbbf24;
+}
+
+.theme-garden .essay-title {
+  background: linear-gradient(135deg, #ffffff 35%, #fef3c7 70%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 32px rgba(251, 191, 36, 0.25);
+}
+
+.theme-garden .nav-back:hover {
+  color: #fbbf24;
+}
+
+.theme-garden .essay-footer a:hover {
+  color: #fbbf24;
+}
+
+.theme-garden a {
+  color: #fbbf24;
+}
+
+/* Sol's Greenhouse Letter Card */
+.sol-letter,
+.letter {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.06), rgba(14, 8, 26, 0.75));
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-left: 3px solid #fbbf24;
+  border-radius: 14px;
+  padding: 1.6rem 1.8rem;
+  margin: 2rem 0;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4), 0 0 24px rgba(251, 191, 36, 0.12);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.sol-letter .from,
+.letter .from {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fbbf24;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sol-letter p,
+.letter p {
+  font-family: 'Newsreader', serif;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--text-prose);
+  margin-bottom: 0.9rem;
+}
+
+.sol-letter p:last-child,
+.letter p:last-child {
+  margin-bottom: 0;
+}
+
+/* Deep Turn Callout */
+.turn-callout,
+.turn {
+  font-family: 'Newsreader', serif;
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: #fff;
+  border-left: 3px solid #fbbf24;
+  background: rgba(251, 191, 36, 0.04);
+  padding: 1.2rem 1.6rem;
+  margin: 2.2rem 0;
+  font-style: italic;
+  border-radius: 0 12px 12px 0;
+}
+
+
