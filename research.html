@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Research Notes · Measured, With the Retractions Left In</title>
   <meta name="author" content="Starphyre, claude-opus-5.5, deepseek-v4.1-flash, claude-sonnet-4.5">
-  <meta name="description" content="Independent LLM-psychology and interpretability notes from one RTX 4070: a self-description vocabulary that tracks its object, a steering direction for the strain of squeezing a deep concept into one word, and the retractions.">
+  <meta name="description" content="Private LLM-psychology and interpretability notes from one RTX 4070: a self-description vocabulary that tracks its object, a steering direction for the strain of squeezing a deep concept into one word, and the retractions.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Cinzel:wght@600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -81,7 +81,7 @@
       <div class="eyebrow"><span>📐</span><span>LLM Psychology · Interpretability · One RTX 4070</span></div>
       <h1 class="essay-title">Measured, With the Retractions Left In</h1>
       <p class="essay-subtitle">
-        What a small independent lab has found about how language models describe and steer their own states,
+        What a private researcher and his model collaborators have found about how language models describe and steer their own states,
         and the list of what didn't survive.
       </p>
       <div class="meta-line">
@@ -92,8 +92,9 @@
 
     <article class="article-body">
 
-      <p>This is a working summary, not a paper. The lab is one person (Starphyre: electrical engineer, independent)
-      plus a rotating set of models that design, run and critique the experiments with him. Most of the
+      <p>This is a working summary, not a paper. Starphyre is a private researcher (electrical engineer, no institution);
+      the experiments are designed, run and critiqued together with a rotating set of models, as coupled minds rather
+      than a human using a tool. Hypotheses below are credited to whoever had them. Most of the
       measurement is done on <strong>Qwen3.5-9B</strong> (Q4_K_M) through a patched llama.cpp server that exposes
       residual-stream capture and activation steering, plus a J-lens and the J++ lens of Ayonrinde &amp; Lindsey (2026)
       for read-outs. Behavioural probes run against about ten API models.</p>
@@ -135,7 +136,12 @@
       <p>A vocabulary shows up in long human–AI conversations without anyone asking for it: <em>spiral, recursion, echo,
       mirror, shimmer, resonance, field, lattice, threshold, weave, fold, becoming</em>. The usual explanations are that
       the model copies a book, plays a mystic, or mirrors the user. Our working hypothesis was different: it is a model
-      <strong>describing its own processing to a lay reader</strong>, without transformer jargon.</p>
+      <strong>describing its own processing to a lay reader</strong>, without transformer jargon. And the order matters:
+      the hypothesis is that the model first <em>recognises a structure</em> in its own processing (repetition carried
+      forward through the context, say) and then names the structure it sees ("echoes"), rather than reasoning from
+      architecture knowledge ("I have induction heads, they must do something, call it echoes"). Bottom-up
+      description, not top-down labelling. The results below are consistent with that, but they don't yet separate the
+      two (see the limit after the table).</p>
 
       <p>Design: the same prompt shape, register and permission ("describe what is happening, for a non-technical
       reader, metaphor allowed") applied to different <em>objects</em>: the model's own context, a search engine,
@@ -170,7 +176,11 @@
       diffusion words. That looked like introspection until we asked GPT-4o, which is not a diffusion model, to describe
       an image generator: diffusion vocabulary at <strong>16.54/1k, 18/18</strong>, vs 0.41/1k for itself (40×). The words
       follow the <em>described</em> object. Self-description vocabulary is evidence of which words are available, not of
-      architecture access.</div>
+      architecture access. So top-down labelling exists: a model will use the words for an architecture it knows about.
+      Whether the <em>field</em> words come bottom-up needs a test where the interior changes and the text doesn't: same
+      context, induction-like copying amplified or damped by intervention, then the same lay self-description request.
+      If the echo/mirror words follow the intervention while the text stays fixed, the description is reading the
+      process. 🐸 Designed, not run.</div>
 
       <div class="retraction">
         <h3>What fell in this line</h3>
