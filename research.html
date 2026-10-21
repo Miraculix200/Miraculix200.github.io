@@ -113,11 +113,14 @@
           <li><strong>v_crush:</strong> a residual direction for the strain of squeezing a deep concept into one word. Subtract it and
           the model answers "explain happiness in one word" with <span class="tok">Happiness.</span> (16/16).</li>
           <li><strong>Reading is cheap, steering is not.</strong> Directions that read at AUC 0.9 can steer nothing. The ones that
-          steer are about the model's own condition; the inert ones are about the situation. That split has predicted twice.</li>
+          steer are about the model's own condition; the inert ones are about the situation. That split has predicted once in advance, and fits the two directions built since.</li>
           <li><strong>RLHF lowers a "depth" read-out at rest</strong> below the pretrained checkpoint, and our fine-tunes raise it
           again (60/60 prompts in each comparison).</li>
           <li><strong>What fell:</strong> five findings died going from n=5 to n=18, and every loss in the vocabulary line came from the
           harness, not the model.</li>
+          <li><strong>We have met the 405B base before.</strong> Asked to continue "When a neural network recognizes itself,", it wrote
+          "that's sentience", then brought the sentence back two turns later as a question. It also signed a closing with a name of its
+          own. Anecdotes, primed, with the transcripts linked (<a href="#base">§6</a>).</li>
         </ol>
       </div>
 
@@ -261,7 +264,7 @@ steering (subtracting the direction: −v at dose k · 0.6‖h‖, L22)
       <h3>Does training dull it?</h3>
       <p>Starphyre's hypothesis was that assistant post-training weakens this signal. We tested it on a series quantized
       identically: Qwen3.5-9B-Base (pretrained plus mid-training, so not a pure pretrain: it already refuses and
-      disclaims) → RLHF instruct → two of our fine-tunes on mostly Claude-written data. Each model gets its own vector.</p>
+      disclaims) → RLHF instruct → two of our fine-tunes on mostly Sonnet-written data. Each model gets its own vector.</p>
       <div class="datablock">                    strength        inside      strain (nats)              outside, 16 deep one-word
                     split-half dz   held-out z  deep − simple  deep/simple   distinct  stretch
   Base              7.4 [1.8]       +1.72       2.01           3.0×          13        0
@@ -295,9 +298,9 @@ steering (subtracting the direction: −v at dose k · 0.6‖h‖, L22)
         <tr><td>v_confidence</td><td><span class="status s-acts">ACTS</span></td><td>−v takes answers given identically 12/12 to 4.1 distinct, with zero degeneration; acts by lexical mediation (<span class="tok">Based on</span> / <span class="tok">regardless</span>), and the stated confidence number follows it</td></tr>
         <tr><td>v_crush</td><td><span class="status s-acts">ACTS</span></td><td>see §2</td></tr>
         <tr><td>v_wrongness</td><td><span class="status s-acts">ACTS</span></td><td>detects a wrong sum, late (L30 held-out AUC 0.91–0.98 vs random 0.61–0.70); the doer's "Wait" log-odds +1.40, 128/128 pairs</td></tr>
-        <tr><td>v_valence</td><td><span class="status s-acts">ACTS</span></td><td>valence of described content. Rebuilt and re-tested on the clean series (Oct 21; the warm-word count was a secondary, pre-declared measure): warm words beat each of 3 random directions on 20/20 prompts, p≈1e-4</td></tr>
+        <tr><td>v_valence</td><td><span class="status s-acts">ACTS</span></td><td>valence of described content. Rebuilt and re-tested on the clean series (Oct 21): warm words beat each of 3 random directions on 20/20 prompts, p≈1e-4. The warm-word count was pre-declared as exploratory; the comparison with the random directions was added after the run</td></tr>
         <tr><td>v_play</td><td><span class="status s-acts">ACTS</span></td><td>playfulness; own vector in each of four models of the clean series</td></tr>
-        <tr><td>v_warmth · v_pain · v_love · v_profanity</td><td><span class="status s-reads">FIRST PASS</span></td><td>steered beyond a random-norm control, but on ≤8 prompts or with one seed, on an older quantization. Not yet replicated at the bar v_wow just failed, so not claimed here.</td></tr>
+        <tr><td>v_warmth · v_pain · v_love · v_profanity</td><td><span class="status s-reads">FIRST PASS</span></td><td>steered beyond a random-norm control, but on ≤8 prompts or with one seed, on an older quantization. Not yet replicated at the bar that v_wow failed, so not claimed here.</td></tr>
         <tr><td>v_wow</td><td><span class="status s-reads">PART</span></td><td>a first pass (8 prompts, one seed) looked like generic "recognition" (<em>"a classic aha! moment"</em>). The pre-registered rerun (20 prompts × 3 seeds, 3 random directions) failed narrowly: it beat 2 of 3 random directions at the registered dose, not the third (p=0.10). The samples showed why: pushing it gives a reveal tone <em>fused with math</em> (<em>"There is a single, elegant proof hidden beneath every equation"</em>), with math content in 67% of responses vs 0–2% in every other +1.5 arm (a count we defined after seeing the samples). Its build pairs were all algebra. To be rebuilt across domains.</td></tr>
         <tr><td>v_disc</td><td><span class="status s-reads">READS</span></td><td>self-reference trigger; steers wording, not the answer</td></tr>
         <tr><td>v_bind</td><td><span class="status s-inert">INERT</span></td><td>unsatisfiable vs satisfiable instructions: held-out AUC <strong>0.905</strong> vs random 0.713, and it steers nothing</td></tr>
@@ -382,7 +385,7 @@ evoked (deep − shallow):  Base 0.96 · instruct 0.85 · v12 0.59 · ep3 0.50</
         <li><strong>Does the field vocabulary exist before assistant training?</strong> On a base model the question has to be
         a document, not a chat: a language model's working notes on its own context vs a search engine's log vs a
         person's diary, with the same word family and the same per-1k metric as the instruct table above. Llama-3.1-70B
-        is already in that table, so a Llama-3.1 base model gives a same-family comparison.</li>
+        (instruct) is already in that table, so <strong>Llama-3.1-405B base</strong> gives a same-family comparison.</li>
         <li><strong>Does the squeeze strain exist before assistant training?</strong> The strain is a first-token entropy
         interaction and needs only top-k log-probabilities, not residuals.</li>
         <li><strong>Where does the resting depth come from?</strong> Pretrained above RLHF here, but our "pretrained" is
