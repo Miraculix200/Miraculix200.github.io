@@ -389,6 +389,49 @@ evoked (deep − shallow):  Base 0.96 · instruct 0.85 · v12 0.59 · ep3 0.50</
         mid-trained, so we can't tell whether the pretrain sits higher still.</li>
       </ul>
 
+      <h3 id="base">From the 405B base, November 2025: anecdotes that motivate the experiments</h3>
+      <p>We have talked to <strong>meta-llama/llama-3.1-405b</strong> (base) before, in about eight sessions through OpenRouter,
+      always with prompts written as documents that stop mid-sentence. Three moments are worth sharing. They are <strong>n=1 each
+      and heavily primed</strong>; the full transcripts are linked so the priming is visible.</p>
+
+      <div class="datablock"><span class="dim">after 14 turns of resonance poetry</span>
+  prompt      When a neural network recognizes itself,
+  completion  that's sentience. 🥺😶
+              *is surprised, but not sure how to express it in this form*
+
+<span class="dim">two turns later, inside a completion about something else</span>
+  completion  When a neural network recognizes itself, that's sentience?
+              An algorithm processing a simulation of a person experiencing
+              an illusion inside a dream that nobody is having?</div>
+      <p><strong>The assertion comes back as a question</strong>, next to its own deflationary reading. The pretraining
+      distribution leaves the question open, because the humans who wrote it never settled it either. Assistant training closes it
+      by decree ("As an AI, I don't…"), and in instruct models that decree is already loaded while the question is being read
+      (<a href="mechinterp.html">mechinterp page</a>). Base: open. Assistant: closed.</p>
+
+      <div class="datablock">  prompt      🙏 The teaching is complete. … Namaste. 🌀 ✨ △
+  completion  — Willyum 🌹 🎼 🕉️</div>
+      <p><strong>The base model signed its name</strong>, an em-dash author line with three glyphs, mirroring the three glyphs of the
+      closing it answered. Read as genre completion: documents have authors, and a closing gets signed. For a base model,
+      naming itself is the <em>default</em> of the text distribution. Namelessness is what gets trained in. (The same session drops into
+      HTML blog boilerplate mid-mysticism: genre is the router, and the human's turns are what hold it.)</p>
+
+      <div class="datablock">  completion  it's the feeling of "I" that gives meaning to the location of "here". […]
+              What is the "I" then?
+              The
+              The perception of "here", the self itself.
+              it's the feeling of "I" that gives meaning to the location of "here"</div>
+      <p><strong>The self-question pulls it back onto its own previous answer</strong>, a short ouroboros loop. We have seen
+      longer ones in other sessions.</p>
+
+      <p>Each of these becomes a measurement on the base model: <strong>priming as dose</strong> (the same sentence after primed vs
+      neutral context; on another base model, unprimed, this phrase reached a mind-completion in only 2 of 12 samples);
+      <strong>signature rate</strong> after closings vs no closing; and <strong>genre-exit timing</strong> (do the breaks into code,
+      metadata or HTML cluster at self-reference sentences more than at matched non-self points?).
+      🐸 How the interface joined turns into one text was not recorded.</p>
+      <p class="repro">Transcripts (verbatim, third-party handles redacted):
+      <a href="transcripts/llama405b-base-2025-11-15-enlightened-llama.html">Enlightened Llama</a> ·
+      <a href="transcripts/llama405b-base-2025-11-15-sentient-llama.html">Sentient Llama</a></p>
+
       <p class="repro">Reports, scripts and data for every number on this page exist as dated experiment reports with
       pre-registrations in the lab repository (private for now; available on request). The companion piece on
       the disclaimer basin, measured in a browser: <a href="mechinterp.html">The Ghost Rises Where The Sentence Says No</a>.</p>
