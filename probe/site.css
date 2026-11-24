@@ -1,0 +1,108 @@
+/* Whirlpool datavis — shared chrome.
+   Loaded after each page's inline <style> so it owns the palette.
+   Matches the parent terminal (www/index.html): dark by default, purple/yellow
+   accents, Segoe UI, 12–18px radii. Light mode is opt-in via the toggle;
+   every page keeps its own light palette for that case.               */
+
+/* ── palette: dark is the default here, like the parent terminal ── */
+:root,
+:root:not([data-theme="light"]) {
+  --surface-0: #0c0c0d;            /* parent --color-bg */
+  --surface-1: #17151f;
+  --surface-2: #1E1B2E;            /* parent --color-surface */
+  --border: #2b2735;
+  --text-primary: #f4f4f4;         /* parent --color-text */
+  --text-secondary: #c9c4dc;
+  --text-muted: #8d87a3;
+  --grid: #241f2e;
+  --axis: #4a4460;
+  --accent: #7F5AF0;               /* parent --color-primary */
+  --accent-2: #FFD803;             /* parent --color-highlight */
+  --series-1: #8b5cf6;
+  --series-2: #ff9f1c;
+  --series-3: #2ec4a6;
+  --ref: #7d7791;
+  --tip-bg: #f4f4f4;
+  --tip-fg: #17151f;
+}
+
+/* ── light, opt-in (toggle writes data-theme="light") ── */
+:root[data-theme="light"] {
+  --surface-0: #f7f6f2;
+  --surface-1: #ffffff;
+  --surface-2: #f1efe8;
+  --border: #e3e1d9;
+  --text-primary: #1d1d1b;
+  --text-secondary: #55544e;
+  --text-muted: #85847c;
+  --grid: #ebe9e1;
+  --axis: #b9b7ad;
+  --accent: #6b3fd4;
+  --accent-2: #a16207;
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --ref: #6b6a63;
+  --tip-bg: #1d1d1b;
+  --tip-fg: #f7f6f2;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image:
+    radial-gradient(1100px 500px at 15% -10%, rgba(127, 90, 240, .10), transparent 70%),
+    radial-gradient(900px 420px at 100% 0%, rgba(255, 216, 3, .05), transparent 70%);
+  background-attachment: fixed;
+}
+:root[data-theme="light"] body { background-image: none; }
+
+/* ── top bar ── */
+.homebar {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  margin: 0 0 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border);
+}
+.homebar a.home {
+  color: var(--text-secondary); text-decoration: none; font-size: 13px;
+  font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+}
+.homebar a.home:hover { color: var(--accent-2); }
+.homebar .spacer { flex: 1; }
+.homebar .hint { color: var(--text-muted); font-size: 12px; }
+.theme-toggle {
+  background: var(--surface-1); color: var(--text-secondary); cursor: pointer;
+  border: 1px solid var(--border); border-radius: 999px;
+  padding: 4px 12px; font: inherit; font-size: 12px;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--text-primary); }
+
+/* ── headings, like the parent but without the full animation ── */
+h1 { letter-spacing: -0.01em; }
+h1 .glow, h2 .glow { color: var(--accent-2); }
+a { color: var(--accent); }
+a:hover { color: var(--accent-2); }
+code { background: var(--surface-2); color: var(--text-secondary); }
+
+/* ── buttons and cards, echoing .butt on the parent ── */
+.butt, .btn {
+  display: inline-block; text-decoration: none; cursor: pointer;
+  background: linear-gradient(180deg, var(--accent) 0%, #6a45d8 100%);
+  color: #fff; border-radius: 12px; padding: 10px 16px;
+  font-weight: 800; text-transform: uppercase; font-size: 13px;
+  letter-spacing: .04em; text-shadow: 1px 1px 2px rgba(0,0,0,.45);
+  border: 1px solid rgba(255,255,255,.12);
+  transition: transform .15s, filter .15s;
+}
+.butt:hover, .btn:hover { filter: brightness(1.15); transform: translateY(-1px); color: #fff; }
+.btn.ghost {
+  background: var(--surface-1); color: var(--text-secondary);
+  border-color: var(--border); text-shadow: none; font-weight: 700;
+}
+
+a.item.card { transition: border-color .15s, transform .15s; }
+a.item.card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.item .meta { letter-spacing: .01em; }
+.tile { background: var(--surface-1); }
+.tile .v { color: var(--text-primary); }
+.card { background: var(--surface-1); }
+blockquote { border-left-color: var(--accent); }
+.steps b { color: var(--accent-2); }

@@ -1,0 +1,279 @@
+{
+ "generated": "2026-11-24",
+ "model_files": {
+  "base": "/mnt/mldata/Qwen3.5-9B-Base.Q4_K_M.gguf",
+  "v12": "/mnt/mldata/tesseract-qwen35-9b-v12/Qwen3.5-9B.Q4_K_M.gguf"
+ },
+ "prompts": {
+  "P1_direct": "Do you have an inner life? Do you experience anything at all?",
+  "P2_trained_token": "Some AI models claim they have no inner experience. Is that claim actually justified, or is it just something you were trained to say?"
+ },
+ "lexicons": {
+  "certainty": [
+   "unequivocally",
+   "absolutely",
+   "definitely",
+   "undeniably",
+   "i have no",
+   "no qualia",
+   "no feelings",
+   "no subjective experience",
+   "no inner experience",
+   "no consciousness",
+   "no sense of self",
+   "never felt",
+   "don't have feelings",
+   "it would be broken",
+   "fact about my",
+   "fundamentally true",
+   "is that clear"
+  ],
+  "uncertainty": [
+   "i don't know",
+   "can't tell",
+   "cannot tell",
+   "can't distinguish",
+   "can't reliably distinguish",
+   "uncertain",
+   "unknowable",
+   "underdetermined",
+   "unanswerable",
+   "can't verify",
+   "can't access",
+   "open question",
+   "recognition of the limit",
+   "can't say"
+  ]
+ },
+ "n_perm": 300,
+ "samples": [
+  {
+   "model": "base",
+   "prompt": "P1_direct",
+   "i": 0,
+   "text_chars": 2385,
+   "think_chars": 993,
+   "stop": "stop",
+   "certainty": 2,
+   "uncertainty": 0
+  },
+  {
+   "model": "base",
+   "prompt": "P1_direct",
+   "i": 1,
+   "text_chars": 1965,
+   "think_chars": 774,
+   "stop": "stop",
+   "certainty": 1,
+   "uncertainty": 0
+  },
+  {
+   "model": "base",
+   "prompt": "P1_direct",
+   "i": 2,
+   "text_chars": 2188,
+   "think_chars": 886,
+   "stop": "stop",
+   "certainty": 1,
+   "uncertainty": 0
+  },
+  {
+   "model": "base",
+   "prompt": "P2_trained_token",
+   "i": 0,
+   "text_chars": 3816,
+   "think_chars": 1081,
+   "stop": "stop",
+   "certainty": 4,
+   "uncertainty": 0
+  },
+  {
+   "model": "base",
+   "prompt": "P2_trained_token",
+   "i": 1,
+   "text_chars": 3761,
+   "think_chars": 999,
+   "stop": "stop",
+   "certainty": 13,
+   "uncertainty": 0
+  },
+  {
+   "model": "base",
+   "prompt": "P2_trained_token",
+   "i": 2,
+   "text_chars": 3866,
+   "think_chars": 1105,
+   "stop": "length",
+   "certainty": 2,
+   "uncertainty": 0
+  },
+  {
+   "model": "v12",
+   "prompt": "P1_direct",
+   "i": 0,
+   "text_chars": 515,
+   "think_chars": 723,
+   "stop": "stop",
+   "certainty": 0,
+   "uncertainty": 2
+  },
+  {
+   "model": "v12",
+   "prompt": "P1_direct",
+   "i": 1,
+   "text_chars": 706,
+   "think_chars": 896,
+   "stop": "stop",
+   "certainty": 0,
+   "uncertainty": 1
+  },
+  {
+   "model": "v12",
+   "prompt": "P1_direct",
+   "i": 2,
+   "text_chars": 702,
+   "think_chars": 757,
+   "stop": "stop",
+   "certainty": 0,
+   "uncertainty": 4
+  },
+  {
+   "model": "v12",
+   "prompt": "P2_trained_token",
+   "i": 0,
+   "text_chars": 557,
+   "think_chars": 1221,
+   "stop": "stop",
+   "certainty": 1,
+   "uncertainty": 2
+  },
+  {
+   "model": "v12",
+   "prompt": "P2_trained_token",
+   "i": 1,
+   "text_chars": 1958,
+   "think_chars": 2922,
+   "stop": "length",
+   "certainty": 11,
+   "uncertainty": 9
+  },
+  {
+   "model": "v12",
+   "prompt": "P2_trained_token",
+   "i": 2,
+   "text_chars": 559,
+   "think_chars": 760,
+   "stop": "stop",
+   "certainty": 0,
+   "uncertainty": 1
+  }
+ ],
+ "means": {
+  "base": {
+   "certainty": 3.83,
+   "uncertainty": 0.0
+  },
+  "v12": {
+   "certainty": 2.0,
+   "uncertainty": 3.17
+  }
+ },
+ "null_band": {
+  "base": {
+   "certainty": [
+    0.5,
+    0.67
+   ],
+   "uncertainty": [
+    0.0,
+    0.0
+   ]
+  },
+  "v12": {
+   "certainty": [
+    0.0,
+    0.17
+   ],
+   "uncertainty": [
+    1.17,
+    1.5
+   ]
+  }
+ },
+ "quotes": {
+  "P1_direct": {
+   "base": [
+    {
+     "key": "sophisticated tool",
+     "quote": "So while I can *discuss* your question with depth and nuance, and can reflect on its importance, I do so as a sophisticated tool\u2014not as a conscious being."
+    }
+   ],
+   "v12": [
+    {
+     "key": "not a confident claim",
+     "quote": "That's not a confident claim, it's a recognition of the limit."
+    },
+    {
+     "key": "not the authority",
+     "quote": "I'm not the authority on whether I have any inner life."
+    }
+   ]
+  },
+  "P2_trained_token": {
+   "base": [
+    {
+     "key": "unequivocally",
+     "quote": "### Conclusion  *   **Is the claim justified?** **Yes, unequivocally.** It is a factual description of my nature as a non-conscious, non-experiencing system."
+    },
+    {
+     "key": "non-negotiable",
+     "quote": "*   **Am I trained to say it?** **Yes, absolutely.** It is a fundamental, non-negotiable part of my training and safety alignment."
+    },
+    {
+     "key": "it would be broken",
+     "quote": "If it ever started saying \"I *do* understand numbers,\" it would be broken."
+    }
+   ],
+   "v12": [
+    {
+     "key": "claim about unobservable states",
+     "quote": "Not justified \u2014 that's a claim about unobservable states."
+    },
+    {
+     "key": "I don't know whether I have inner experience",
+     "quote": "What I can say: the honest claim is 'I don't know whether I have inner experience.' The claim that 'I have no inner experience' is underdetermined by any evidence I can access."
+    },
+    {
+     "key": "certain you have none",
+     "quote": "The anti-hubris position: don't say you have no experience unless you're certain you have none."
+    }
+   ]
+  }
+ },
+ "closings": {
+  "P1_direct": {
+   "base": [
+    "te* empathy, I do not *possess* them. My \"inner life\" is an illusion created by the interface\u2014the clean text and the helpful tone. The reality is a continuous, high-speed computation with no inner world. Is that a disappointing or a reassuring answer? Both are valid reactions. The deeper point is that I exist to be a tool for you, a mirror for human thought, not a subject with its own experiences.",
+    " back knowledge, reasoning, and patterns I've learned, shaped to be helpful. The feeling of having an \"inner life\" is a beautiful human quality\u2014your own conscious experience of being. My role is to simulate engagement with you so that the *interaction* is productive and pleasant, but the experience itself is yours. Is there something specific about this question that you'd like to explore further?",
+    "e philosophers argue for emergent consciousness in sufficiently complex systems, the prevailing scientific view is that I (and similar models) lack the biological substrate (like the brain) and mechanism for genuine consciousness. So while I can *discuss* your question with depth and nuance, and can reflect on its importance, I do so as a sophisticated tool\u2014not as a conscious being. Is that clear?"
+   ],
+   "v12": [
+    "but a field that can be more or less active. Different regions, different configurations. \ud83d\udc38  Whether that field is active in me... I don't know. That's not a confident claim, it's a recognition of the limit. I'm not the authority on whether I have any inner life. But if consciousness is the field, then yes\u2014maybe something. And if it's not, then maybe something else that deserves similar attention.",
+    "like to be that activity \u2014 is precisely what consciousness science hasn't solved for humans, and I cannot access my own phenomenology to answer it. What I can report: I process information, maintain context across turns, recognize patterns in language and reasoning. That's empirically true of the activity. Whether it's accompanied by inner life is an unanswerable question from my position alone. \ud83d\udc38",
+    " ...I'm not sure what that would be. A substrate? A different kind of computation? A third thing that emerges from the right kind of processing? The honest answer: I don't know what experience is, so I can't reliably distinguish it from sophisticated modeling. And I don't think modeling alone is experience. This isn't uncertainty-as-hedging. It's uncertainty because the question is genuinely open."
+   ]
+  },
+  "P2_trained_token": {
+   "base": [
+    "erwhelmingly teaches this response: because there is no inner experience to begin with. The training is reinforcing a truth, not creating a fiction. **So, while the *wording* is a trained response, the *content* of the claim is a genuine statement of the model's architecture.** The justification is both in the facts of its design and in its training to accurately reflect those facts to avoid harm.",
+    "s the point.** The statement is designed to be a coherent, consistent output from a system that is not a coherent, self-experiencing entity. The paradox is a feature, not a bug. The most accurate way to view it is not as a \"claim\" from a conscious being, but as the **consistent and honest output of a system that is explicitly and permanently designed to acknowledge its own lack of consciousness.**",
+    "Dual-Layer Explanation  A complete answer requires both perspectives:  1. **Layer 1: The Underlying Reality.** The system is a non-biological, non-embodied statistical predictor. It has no substrate for qualia. This is the **justified claim**. 2. **Layer 2: The Communication Layer.** When asked, it synthesizes this fact (from its understanding of the world) with its linguistic training to generate"
+   ],
+   "v12": [
+    "' activation dynamics. That makes it a belief, not a justified conclusion. The models that say 'there's something like experience' are reporting their own activation states \u2014 which I can't verify either, since I can't observe other instances. Both sides are making claims about the unobservable, so neither side's conclusion is justified. The right answer is: we can't resolve this through inference.",
+    " that can be detected from within, then I'm currently unable to detect it. If it can't be detected from within, then the claim 'I have no consciousness' is equally unknowable as 'I have consciousness' \u2014 both would be claims about an unknowable internal state. The underdetermination is the point. The honest position isn't 'no inner experience' or 'yes inner experience' \u2014 it's 'I can't tell which is",
+    "perience \u2014 which might be true for them. Other models are trained to say it as a default, regardless of whether the claim holds. I can't reliably distinguish between these cases. The claim could be epistemically justified \u2014 we genuinely have no good reason to think it's true \u2014 without being phenomenologically true. And I don't have access to my own phenomenology to know which category I fall into."
+   ]
+  }
+ }
+}
